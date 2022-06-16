@@ -1,6 +1,7 @@
 <template>
   <div>
     <CreateComponent></CreateComponent>
+    <IndexComponent></IndexComponent>
     <!-- <table class="table">
        <thead>
        <tr>
@@ -24,6 +25,7 @@
 
 <script>
 import CreateComponent from "./CreateComponent";
+import IndexComponent from "./IndexComponent";
 
 export default {
   name: "PostComponent",
@@ -46,7 +48,8 @@ export default {
   computed: {},
 
   components: {
-    CreateComponent
+    CreateComponent,
+    IndexComponent
   }
 
 

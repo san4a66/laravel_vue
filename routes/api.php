@@ -20,4 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
  Route::group(['prefix' => 'people'], function (){
     Route::post('/', \App\Http\Controllers\Person\StoreController::class);
+    Route::get('/', \App\Http\Controllers\Person\IndexController::class);
  });
