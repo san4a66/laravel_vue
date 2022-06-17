@@ -5398,7 +5398,7 @@ __webpack_require__.r(__webpack_exports__);
     addPerson: function addPerson() {
       var _this = this;
 
-      axios.post('/api/people', {
+      axios.post('/api/person', {
         name: this.name,
         age: this.age,
         job: this.job
@@ -5465,7 +5465,10 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       people: null,
-      editPersonId: null
+      editPersonId: null,
+      name: null,
+      age: null,
+      job: null
     };
   },
   mounted: function mounted() {
@@ -5475,12 +5478,27 @@ __webpack_require__.r(__webpack_exports__);
     getPeople: function getPeople() {
       var _this = this;
 
-      axios.get('/api/people').then(function (res) {
+      axios.get('/api/person').then(function (res) {
         _this.people = res.data;
       });
     },
-    changeEditPersonId: function changeEditPersonId(id) {
+    updatePerson: function updatePerson(id) {
+      var _this2 = this;
+
+      this.editPersonId = null;
+      axios.patch("/api/person/".concat(id), {
+        name: this.name,
+        age: this.age,
+        job: this.job
+      }).then(function (res) {
+        _this2.getPeople();
+      });
+    },
+    changeEditPersonId: function changeEditPersonId(id, name, age, job) {
       this.editPersonId = id;
+      this.name = name;
+      this.age = age;
+      this.job = job;
     },
     isEdit: function isEdit(id) {
       return this.editPersonId === id;
@@ -28405,7 +28423,7 @@ var render = function () {
         [
           _vm._l(_vm.people, function (person) {
             return [
-              _c("tr", [
+              _c("tr", { class: _vm.isEdit(person.id) ? "d-none" : "" }, [
                 _c("th", { attrs: { scope: "row" } }, [
                   _vm._v(_vm._s(person.id)),
                 ]),
@@ -28425,7 +28443,12 @@ var render = function () {
                       on: {
                         click: function ($event) {
                           $event.preventDefault()
-                          return _vm.changeEditPersonId(person.id)
+                          return _vm.changeEditPersonId(
+                            person.id,
+                            person.name,
+                            person.age,
+                            person.job
+                          )
                         },
                       },
                     },
@@ -28439,11 +28462,77 @@ var render = function () {
                   _vm._v(_vm._s(person.id)),
                 ]),
                 _vm._v(" "),
-                _vm._m(1, true),
+                _c("td", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.name,
+                        expression: "name",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.name },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.name = $event.target.value
+                      },
+                    },
+                  }),
+                ]),
                 _vm._v(" "),
-                _vm._m(2, true),
+                _c("td", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.age,
+                        expression: "age",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "number" },
+                    domProps: { value: _vm.age },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.age = $event.target.value
+                      },
+                    },
+                  }),
+                ]),
                 _vm._v(" "),
-                _vm._m(3, true),
+                _c("td", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.job,
+                        expression: "job",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.job },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.job = $event.target.value
+                      },
+                    },
+                  }),
+                ]),
                 _vm._v(" "),
                 _c("td", [
                   _c(
@@ -28454,7 +28543,7 @@ var render = function () {
                       on: {
                         click: function ($event) {
                           $event.preventDefault()
-                          return _vm.changeEditPersonId(null)
+                          return _vm.updatePerson(person.id)
                         },
                       },
                     },
@@ -28487,30 +28576,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Edit")]),
       ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("input", { staticClass: "form-control", attrs: { type: "text" } }),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("input", { staticClass: "form-control", attrs: { type: "number" } }),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("input", { staticClass: "form-control", attrs: { type: "text" } }),
     ])
   },
 ]
