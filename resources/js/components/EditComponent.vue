@@ -33,7 +33,7 @@ export default {
 
   methods: {
 
-    },
+
     updatePerson(id) {
       this.$parent.editPersonId = null
       axios.patch(`/api/person/${id}`, {name: this.name, age: this.age, job: this.job})
@@ -41,7 +41,7 @@ export default {
             this.$parent.getPeople()
           })
     },
-
+  }
 }
 </script>
 
