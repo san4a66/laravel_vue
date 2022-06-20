@@ -18,9 +18,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
- Route::group(['prefix' => 'person'], function (){
+ Route::group(['prefix' => 'people'], function (){
     Route::post('/', \App\Http\Controllers\Person\StoreController::class);
     Route::get('/', \App\Http\Controllers\Person\IndexController::class);
-    Route::patch('/{person}', \App\Http\Controllers\Person\UpdateController::class);
-    Route::delete('/{person}', \App\Http\Controllers\Person\DeleteController::class);
+    Route::patch('/{people}', \App\Http\Controllers\Person\UpdateController::class);
+    Route::delete('/{people}', \App\Http\Controllers\Person\DeleteController::class);
  });
