@@ -55,13 +55,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get('/api/people').then(function (res) {
-        _this.people = res.data;
+        _this.people = res.data.data;
       });
     },
     deletePerson: function deletePerson(id) {
       var _this2 = this;
 
-      axios["delete"]('api/people/' + id).then(function (res) {
+      axios["delete"]("api/people/".concat(id)).then(function (res) {
         _this2.getPeople();
       });
     }
